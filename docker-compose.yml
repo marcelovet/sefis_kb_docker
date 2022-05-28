@@ -1,0 +1,30 @@
+version: '2.5'
+
+services:
+  kb-sefis-postgres:
+    image: postgres:14.3
+    restart: always
+    env_file:
+      - ./config/postgres.env
+    ports:
+      - "15432:5432"
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    networks:
+      - kb-sefis-network
+
+  pgadmin-docker:
+    image: dpage/pgadmin4
+    restart: always
+    env_file:
+      - ./config/pgadmin.env
+    ports:
+      - "16543:80"
+    depends_on:
+      - kb-sefis-postgres
+    networks:
+      - kb-sefis-network
+
+networks:
+  kb-sefis-network:
+    driver: bridge
