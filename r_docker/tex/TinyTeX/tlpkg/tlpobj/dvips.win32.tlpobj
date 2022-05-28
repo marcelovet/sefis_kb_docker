@@ -1,9 +1,0 @@
-name dvips.win32
-category TLCore
-revision 62609
-shortdesc win32 files of dvips
-containersize 94468
-containerchecksum 40eadb77425836441749fc1c8c705dc546940b2fe7bba38fdb08aab14d039f79524011229ab2345b7a6cf4eeed9be7ffc4dfa12f0ef3802610941c5e19dbe645
-binfiles arch=win32 size=53
- bin/win32/afm2tfm.exe
- bin/win32/dvips.exe

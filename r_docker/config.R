@@ -1,0 +1,1 @@
+rmarkdown::render("/home/rstudio/texconfig.rmd")

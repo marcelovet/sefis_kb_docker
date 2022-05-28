@@ -1,0 +1,9 @@
+---
+title: "Relatório de atividades do SEFIS/CRMV-MG"
+output:
+  pdf_document:
+    includes:
+      in_header: "preamble.tex"
+---
+    
+Esse é um teste
