@@ -1,0 +1,35 @@
+name luatex.win32
+category TLCore
+revision 62665
+shortdesc win32 files of luatex
+containersize 1830780
+containerchecksum da11835b3c85825518760deafa8dd31ee762731047942d4d540c41e144b3e87021f507745c303644db029d2c3c32f28ee679ad2677919e65824d5138d1f61fe0
+binfiles arch=win32 size=1696
+ bin/win32/api-ms-win-core-file-l1-2-0.dll
+ bin/win32/api-ms-win-core-file-l2-1-0.dll
+ bin/win32/api-ms-win-core-localization-l1-2-0.dll
+ bin/win32/api-ms-win-core-processthreads-l1-1-1.dll
+ bin/win32/api-ms-win-core-synch-l1-2-0.dll
+ bin/win32/api-ms-win-core-timezone-l1-1-0.dll
+ bin/win32/api-ms-win-crt-convert-l1-1-0.dll
+ bin/win32/api-ms-win-crt-environment-l1-1-0.dll
+ bin/win32/api-ms-win-crt-filesystem-l1-1-0.dll
+ bin/win32/api-ms-win-crt-heap-l1-1-0.dll
+ bin/win32/api-ms-win-crt-locale-l1-1-0.dll
+ bin/win32/api-ms-win-crt-math-l1-1-0.dll
+ bin/win32/api-ms-win-crt-multibyte-l1-1-0.dll
+ bin/win32/api-ms-win-crt-process-l1-1-0.dll
+ bin/win32/api-ms-win-crt-runtime-l1-1-0.dll
+ bin/win32/api-ms-win-crt-stdio-l1-1-0.dll
+ bin/win32/api-ms-win-crt-string-l1-1-0.dll
+ bin/win32/api-ms-win-crt-time-l1-1-0.dll
+ bin/win32/api-ms-win-crt-utility-l1-1-0.dll
+ bin/win32/dviluatex.exe
+ bin/win32/lua53.dll
+ bin/win32/luatex.dll
+ bin/win32/luatex.exe
+ bin/win32/pdfddeservername.txt
+ bin/win32/texlua.exe
+ bin/win32/texluac.exe
+ bin/win32/ucrtbase.dll
+ bin/win32/vcruntime140.dll

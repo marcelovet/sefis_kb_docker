@@ -1,0 +1,67 @@
+[Thu Apr 14 17:04:51 2022] install: abntex2
+[Thu Apr 14 17:04:53 2022] install: babel-portuges
+[Thu Apr 14 17:04:55 2022] install: bookmark
+[Thu Apr 14 17:04:57 2022] install: caption
+[Thu Apr 14 17:04:59 2022] install: colortbl
+[Thu Apr 14 17:05:02 2022] install: courier
+[Thu Apr 14 17:05:04 2022] install: enumitem
+[Thu Apr 14 17:05:06 2022] install: environ
+[Thu Apr 14 17:05:08 2022] install: fancyhdr
+[Thu Apr 14 17:05:10 2022] install: grffile
+[Thu Apr 14 17:05:12 2022] install: lastpage
+[Thu Apr 14 17:05:14 2022] install: lipsum
+[Thu Apr 14 17:05:16 2022] install: makecell
+[Thu Apr 14 17:05:18 2022] install: makeindex.win32
+[Thu Apr 14 17:05:20 2022] install: makeindex
+[Thu Apr 14 17:05:22 2022] install: memoir
+[Thu Apr 14 17:05:24 2022] install: microtype
+[Thu Apr 14 17:05:26 2022] install: multirow
+[Thu Apr 14 17:05:28 2022] install: pdflscape
+[Thu Apr 14 17:05:30 2022] install: tabu
+[Thu Apr 14 17:05:32 2022] install: textcase
+[Thu Apr 14 17:05:34 2022] install: threeparttable
+[Thu Apr 14 17:05:36 2022] install: threeparttablex
+[Thu Apr 14 17:05:38 2022] install: trimspaces
+[Thu Apr 14 17:05:39 2022] install: ulem
+[Thu Apr 14 17:05:41 2022] install: varwidth
+[Thu Apr 14 17:05:43 2022] install: wrapfig
+[Thu Apr 14 17:05:43 2022] command: mktexlsr
+[Thu Apr 14 17:05:44 2022] command: updmap-sys
+[19/04/2022  9:53:32,44] self update: texlive.infra (62297 -> 63037)
+[Tue Apr 19 09:53:46 2022] update: graphics-def (62085 -> 63042)
+[Tue Apr 19 09:53:48 2022] update: l3backend (63007 -> 63025)
+[Tue Apr 19 09:53:51 2022] update: texlive-scripts (63009 -> 63049)
+[Tue Apr 19 09:53:59 2022] update: tlgs.win32 (62959 -> 63030)
+[Tue Apr 19 09:53:59 2022] command: mktexlsr
+[Tue Apr 19 09:54:00 2022] command: updmap-sys
+[Tue Apr 19 09:54:02 2022] command: fmtutil-sys --byfmt pdflatex --no-error-if-no-engine=luajithbtex,luajittex,mfluajit --status-file=C:\Users\marce\AppData\Local\Temp\9gwgw1CSZh\aiI9CsJN_S
+[Tue Apr 19 09:54:05 2022]   OK: pdflatex.fmt/pdftex
+[Tue Apr 19 09:54:05 2022] command: fmtutil-sys --byfmt latex --no-error-if-no-engine=luajithbtex,luajittex,mfluajit --status-file=C:\Users\marce\AppData\Local\Temp\9gwgw1CSZh\aiI9CsJN_S
+[Tue Apr 19 09:54:08 2022]   OK: pdflatex.fmt/pdftex latex.fmt/pdftex
+[Tue Apr 19 09:54:08 2022] command: fmtutil-sys --byfmt lualatex --no-error-if-no-engine=luajithbtex,luajittex,mfluajit --status-file=C:\Users\marce\AppData\Local\Temp\9gwgw1CSZh\aiI9CsJN_S
+[Tue Apr 19 09:54:13 2022]   OK: pdflatex.fmt/pdftex latex.fmt/pdftex lualatex.fmt/luahbtex
+[Tue Apr 19 09:54:13 2022] command: fmtutil-sys --byfmt xelatex --no-error-if-no-engine=luajithbtex,luajittex,mfluajit --status-file=C:\Users\marce\AppData\Local\Temp\9gwgw1CSZh\aiI9CsJN_S
+[Tue Apr 19 09:54:17 2022]   OK: pdflatex.fmt/pdftex latex.fmt/pdftex lualatex.fmt/luahbtex xelatex.fmt/xetex
+[Tue Apr 19 09:54:17 2022] command: fmtutil-sys --byfmt dvilualatex --no-error-if-no-engine=luajithbtex,luajittex,mfluajit --status-file=C:\Users\marce\AppData\Local\Temp\9gwgw1CSZh\aiI9CsJN_S
+[Tue Apr 19 09:54:21 2022]   OK: pdflatex.fmt/pdftex latex.fmt/pdftex lualatex.fmt/luahbtex xelatex.fmt/xetex dvilualatex.fmt/luatex
+[Sat Apr 23 17:22:45 2022] update: l3backend (63025 -> 63089)
+[Sat Apr 23 17:22:48 2022] update: l3kernel (63007 -> 63089)
+[Sat Apr 23 17:22:50 2022] update: texlive-scripts.win32 (62199 -> 63068)
+[Sat Apr 23 17:22:53 2022] update: texlive-scripts (63049 -> 63095)
+[Sat Apr 23 17:22:53 2022] command: mktexlsr
+[Sat Apr 23 17:22:54 2022] command: updmap-sys
+[Sat Apr 23 17:22:56 2022] command: fmtutil-sys --byfmt pdflatex --no-error-if-no-engine=luajithbtex,luajittex,mfluajit --status-file=C:\Users\marce\AppData\Local\Temp\qUY5qHFpwJ\l2tmYqp1qs
+[Sat Apr 23 17:23:00 2022]   OK: pdflatex.fmt/pdftex
+[Sat Apr 23 17:23:00 2022] command: fmtutil-sys --byfmt dvilualatex --no-error-if-no-engine=luajithbtex,luajittex,mfluajit --status-file=C:\Users\marce\AppData\Local\Temp\qUY5qHFpwJ\l2tmYqp1qs
+[Sat Apr 23 17:23:04 2022]   OK: pdflatex.fmt/pdftex dvilualatex.fmt/luatex
+[Sat Apr 23 17:23:04 2022] command: fmtutil-sys --byfmt lualatex --no-error-if-no-engine=luajithbtex,luajittex,mfluajit --status-file=C:\Users\marce\AppData\Local\Temp\qUY5qHFpwJ\l2tmYqp1qs
+[Sat Apr 23 17:23:09 2022]   OK: pdflatex.fmt/pdftex dvilualatex.fmt/luatex lualatex.fmt/luahbtex
+[Sat Apr 23 17:23:09 2022] command: fmtutil-sys --byfmt xelatex --no-error-if-no-engine=luajithbtex,luajittex,mfluajit --status-file=C:\Users\marce\AppData\Local\Temp\qUY5qHFpwJ\l2tmYqp1qs
+[Sat Apr 23 17:23:12 2022]   OK: pdflatex.fmt/pdftex dvilualatex.fmt/luatex lualatex.fmt/luahbtex xelatex.fmt/xetex
+[Sat Apr 23 17:23:12 2022] command: fmtutil-sys --byfmt latex --no-error-if-no-engine=luajithbtex,luajittex,mfluajit --status-file=C:\Users\marce\AppData\Local\Temp\qUY5qHFpwJ\l2tmYqp1qs
+[Sat Apr 23 17:23:15 2022]   OK: pdflatex.fmt/pdftex dvilualatex.fmt/luatex lualatex.fmt/luahbtex xelatex.fmt/xetex latex.fmt/pdftex
+[Fri Apr 29 22:32:28 2022] update: texlive-scripts (63095 -> 63164)
+[Fri Apr 29 22:32:28 2022] command: mktexlsr
+[Fri Apr 29 22:32:29 2022] command: updmap-sys
+[Fri Apr 29 22:33:04 2022] install: grfext
+[Fri Apr 29 22:33:04 2022] command: mktexlsr

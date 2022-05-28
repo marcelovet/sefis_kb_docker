@@ -1,0 +1,9 @@
+name luahbtex.win32
+category TLCore
+revision 62665
+shortdesc win32 files of luahbtex
+containersize 1584660
+containerchecksum f68f0061f1a4fc427d3d49d9ad9daebd8770ce09b7e29049f0fa7af1dc7dafea5727e7c659c38ab98f4cd3602761081f5a7a88d4a04f7263a12db48c5f07fd66
+binfiles arch=win32 size=1469
+ bin/win32/luahbtex.dll
+ bin/win32/luahbtex.exe

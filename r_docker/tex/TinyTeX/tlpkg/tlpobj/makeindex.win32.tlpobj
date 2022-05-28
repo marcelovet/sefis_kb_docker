@@ -1,0 +1,8 @@
+name makeindex.win32
+category Package
+revision 62199
+shortdesc win32 files of makeindex
+containersize 18168
+containerchecksum abbbc7cbd4fad906f767fbf9c3f9afea84dbc6018f21c363b9fd7a9489eaabff148ebc3a9a87621ba0fc32d3ef97f0dbb2b6f8feb9012f19587ce527da7b2e97
+binfiles arch=win32 size=21
+ bin/win32/makeindex.exe
