@@ -31,7 +31,7 @@ services:
     env_file:
       - ./config/r.env
     ports:
-      - "8282:8282"
+      - "8787:8787"
     volumes:
       - ./r_docker:/home/rstudio
     depends_on:
