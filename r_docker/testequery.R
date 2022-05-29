@@ -28,3 +28,4 @@ for (i in 1:10) {
 }
 
 dbReadTable(con, "clientes") %>% dplyr::filter(estado=="FF")
+dbDisconnect(con)
