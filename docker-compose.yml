@@ -25,6 +25,20 @@ services:
     networks:
       - kb-sefis-network
 
+  rstudio-docker:
+    build: r_docker/
+    restart: always
+      env_file:
+        - ./config/r.env
+      ports:
+        - "8282:8282"
+      volumes:
+        - ./r_docker:/home/rstudio
+      depends_on:
+        - pgadmin-docker
+      networks:
+        - kb-sefis-network
+
 networks:
   kb-sefis-network:
     driver: bridge
