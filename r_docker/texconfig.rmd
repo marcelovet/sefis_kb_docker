@@ -2,6 +2,7 @@
 title: "Relatório de atividades do SEFIS/CRMV-MG"
 output:
   pdf_document:
+    latex_engine: lualatex
     includes:
       in_header: "preamble.tex"
 ---
