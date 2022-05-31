@@ -34,6 +34,7 @@ services:
       - "8787:8787"
     volumes:
       - ./r_docker:/home/rstudio
+      - ./nextcloud/kobo:/home/rstudio/kobo
     depends_on:
       - pgadmin-docker
     networks:
