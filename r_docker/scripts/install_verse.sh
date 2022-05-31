@@ -46,9 +46,7 @@ apt_install \
     texinfo \
     software-properties-common \
     vim \
-    wget \
-    mailR \
-    Rcurl
+    wget
 
 # libgit2-dev also depends on the libcurl4-gnutils in bionic but not on focal
 # cran PPA is a super-stable solution to this
@@ -90,7 +88,9 @@ install2.r --error --skipmissing --deps TRUE --skipinstalled -n "$NCPUS" \
     rticles \
     rmdshower \
     rJava \
-    xaringan
+    xaringan \
+    mailR \
+    Rcurl
 
 # Clean up
 rm -rf /tmp/downloaded_packages
