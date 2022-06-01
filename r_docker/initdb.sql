@@ -158,3 +158,14 @@ INSERT INTO tbl_atividades(tipo_atividade, label_atividade, classe, tp_form, art
 INSERT INTO tbl_atividades(tipo_atividade, label_atividade, classe, tp_form, art_obrigatorio, fundamento_legal_art, registro_obrigatorio, fundamento_legal_registro) VALUES ('86', 'Clínica médico-veterinária Dia', '8', 'emv', '1', 'Lei nº 5.517/1968, art. 5º, alíneas "a", "b" e "c"', '1', 'Lei nº 5.517/1968, art. 5º, alíneas "a", "b" e "c"; Resolução CFMV nº 682/2001, art. 1º; Resolução CFMV 1177/2017, art. 1º inciso II.');
 INSERT INTO tbl_atividades(tipo_atividade, label_atividade, classe, tp_form, art_obrigatorio, fundamento_legal_art, registro_obrigatorio, fundamento_legal_registro) VALUES ('87', 'Clínica médico-veterinária 24 horas', '8', 'emv', '1', 'Lei nº 5.517/1968, art. 5º, alíneas "a", "b" e "c"', '1', 'Lei nº 5.517/1968, art. 5º, alíneas "a", "b" e "c"; Resolução CFMV nº 682/2001, art. 1º; Resolução CFMV 1177/2017, art. 1º inciso II.');
 INSERT INTO tbl_atividades(tipo_atividade, label_atividade, classe, tp_form, art_obrigatorio, fundamento_legal_art, registro_obrigatorio, fundamento_legal_registro) VALUES ('88', 'Hospital médico-veterinário', '8', 'emv', '1', 'Lei nº 5.517/1968, art. 5º, alíneas "a", "b" e "c"', '1', 'Lei nº 5.517/1968, art. 5º, alíneas "a", "b" e "c"; Resolução CFMV nº 682/2001, art. 1º; Resolução CFMV 1177/2017, art. 1º inciso II.');
+
+CREATE TABLE atividades_mv(
+  tipo_atividade Varchar(3),
+  id_relatorio Varchar(200),
+  CONSTRAINT fk_tipo_atividade FOREIGN KEY(tipo_atividade) REFERENCES tbl_atividades(tipo_atividade),
+  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+);
+
+INSERT INTO atividades_mv(id_relatorio, tipo_atividade) VALUES ('EMV-157984688', '52');
+INSERT INTO atividades_mv(id_relatorio, tipo_atividade) VALUES ('EMV-157984688', '53');
+INSERT INTO atividades_mv(id_relatorio, tipo_atividade) VALUES ('EMV-157984688', '54');
