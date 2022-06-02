@@ -82,20 +82,20 @@ CREATE TABLE fiscais_atv(
   nome Varchar(400),
   cargo Varchar(400),
   img_assinatura Varchar(400),
-  CONSTRAINT fk_matricula FOREIGN KEY(matricula) REFERENCES sefis_rh(matricula),
+  CONSTRAINT fk_matricula FOREIGN KEY(matricula) REFERENCES tbl_sefis(matricula),
   CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
-CREATE TABLE testemunhas{
+CREATE TABLE testemunhas(
   id_relatorio Varchar(200),
   nome Varchar(400),
   documento Varchar(40),
   img_assinatura Varchar(400),
   negou_assinar boolean,
   CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
-}
+);
 
-CREATE TABLE recursos_humanos{
+CREATE TABLE recursos_humanos(
   id_relatorio Varchar(200),
   nome Varchar(400),
   crmv_pf Varchar(40),
@@ -103,7 +103,43 @@ CREATE TABLE recursos_humanos{
   funcao text,
   formacao Varchar(40),
   CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
-}
+);
+
+CREATE TABLE responsavel_tecnico(
+  id_relatorio Varchar(200),
+  nome Varchar(400),
+  crmv_pf Varchar(40),
+  formacao Varchar(40),
+  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+);
+
+CREATE TABLE tbl_tcpj(
+  constatacoes_tabeladas Varchar(3) PRIMARY KEY,
+  label_constatacao text
+);
+
+CREATE TABLE tcpj(
+  id_relatorio Varchar(200),
+  id_tcpj Varchar(400) PRIMARY KEY,
+  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+);
+
+CREATE TABLE tcpj_const_adc(
+  id_relatorio Varchar(200),
+  id_tcpj Varchar(400),
+  constatacoes_adicionais text,
+  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_id_tcpj FOREIGN KEY(id_tcpj) REFERENCES tcpj(id_tcpj)
+);
+
+CREATE TABLE tcpj_const_tabelado(
+  id_relatorio Varchar(200),
+  id_tcpj Varchar(400),
+  constatacoes_tabeladas Varchar(3),
+  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_id_tcpj FOREIGN KEY(id_tcpj) REFERENCES tcpj(id_tcpj),
+  CONSTRAINT fk_constatacoes_tabeladas FOREIGN KEY(constatacoes_tabeladas) REFERENCES tbl_tcpj(constatacoes_tabeladas)
+);
 
 -- formulario emv
 CREATE TABLE tbl_servicos(
