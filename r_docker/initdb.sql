@@ -118,13 +118,13 @@ CREATE TABLE tbl_tcpj(
   label_constatacao text
 );
 
-CREATE TABLE tcpj(
+CREATE TABLE termo_constatacao_pj(
   id_relatorio Varchar(200),
   id_tcpj Varchar(400) PRIMARY KEY,
   CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
-CREATE TABLE tcpj_const_adc(
+CREATE TABLE termo_constatacao_adc(
   id_relatorio Varchar(200),
   id_tcpj Varchar(400),
   constatacoes_adicionais text,
@@ -132,13 +132,48 @@ CREATE TABLE tcpj_const_adc(
   CONSTRAINT fk_id_tcpj FOREIGN KEY(id_tcpj) REFERENCES tcpj(id_tcpj)
 );
 
-CREATE TABLE tcpj_const_tabelado(
+CREATE TABLE termo_constatacao_tb(
   id_relatorio Varchar(200),
   id_tcpj Varchar(400),
   constatacoes_tabeladas Varchar(3),
   CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_id_tcpj FOREIGN KEY(id_tcpj) REFERENCES tcpj(id_tcpj),
   CONSTRAINT fk_constatacoes_tabeladas FOREIGN KEY(constatacoes_tabeladas) REFERENCES tbl_tcpj(constatacoes_tabeladas)
+);
+
+CREATE TABLE termo_constatacao_pf(
+  id_relatorio Varchar(200),
+  id_tcpf Varchar(400) PRIMARY KEY,
+  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+);
+
+CREATE TABLE termo_constatacao_pf_dt(
+  id_relatorio Varchar(200),
+  id_tcpf Varchar(400),
+  nome Varchar(400),
+  documento Varchar(40),
+  img_assinatura Varchar(400),
+  negou_assinar boolean,
+  contato_email Varchar(40),
+  constatacao text,
+  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_id_tcpf FOREIGN KEY(id_tcpf) REFERENCES tcpf(id_tcpf)
+);
+
+CREATE TABLE termo_fiscalizacao(
+  id_relatorio Varchar(200),
+  id_tf Varchar(400) PRIMARY KEY,
+  label_tf text,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+);
+
+CREATE TABLE auto_infracao(
+  id_relatorio Varchar(200),
+  id_ai Varchar(400) PRIMARY KEY,
+  label_ai_rt text,
+  label_ai_registro text,
+  label_ai_comerciovacina text,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
 -- formulario emv
