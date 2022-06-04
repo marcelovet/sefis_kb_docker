@@ -21,15 +21,15 @@ CREATE TABLE tbl_atividades(
   registro_obrigatorio boolean,
   fundamento_legal_art text,
   fundamento_legal_registro text,
-  CONSTRAINT fk_classe FOREIGN KEY(classe) REFERENCES tbl_classes(classe),
-  CONSTRAINT fk_tp_form FOREIGN KEY(tp_form) REFERENCES tbl_formularios(tp_form)
+  CONSTRAINT fk_tbl_classes FOREIGN KEY(classe) REFERENCES tbl_classes(classe),
+  CONSTRAINT fk_tbl_formularios FOREIGN KEY(tp_form) REFERENCES tbl_formularios(tp_form)
 );
 
 CREATE TABLE forms(
   uuid_form Varchar(40) PRIMARY KEY,
   id_form Varchar(40),
   tp_form Varchar(5),
-  CONSTRAINT fk_tp_form FOREIGN KEY(tp_form) REFERENCES tbl_formularios(tp_form)
+  CONSTRAINT fk_tbl_formularios FOREIGN KEY(tp_form) REFERENCES tbl_formularios(tp_form)
 );
 
 CREATE TABLE dados_fiscalizacao(
@@ -47,12 +47,12 @@ CREATE TABLE dados_fiscalizacao(
   gera_ai_registro boolean,
   gera_ai_comerciovacina boolean,
   uuid_form Varchar(40),
-  CONSTRAINT fk_uuid FOREIGN KEY(uuid_form) REFERENCES forms(uuid_form)
+  CONSTRAINT fk_forms FOREIGN KEY(uuid_form) REFERENCES forms(uuid_form)
 );
 
-CREATE SEQUENCE id_estabelecimentos;
+CREATE SEQUENCE id_estabelecimento;
 CREATE TABLE estabelecimentos(
-  id_estabelecimentos int default nextval('id_estabelecimentos'::regclass) PRIMARY KEY,
+  id_estabelecimento int default nextval('id_estabelecimento'::regclass) PRIMARY KEY,
   crmv_pj Varchar(10),
   razao_social Varchar(200),
   cpf_cnpj Varchar(40),
@@ -61,7 +61,7 @@ CREATE TABLE estabelecimentos(
   contato_telcel Varchar(40),
   latitude real,
   longitude real,
-  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
 CREATE SEQUENCE id_atividades_mv;
@@ -69,8 +69,8 @@ CREATE TABLE atividades_mv(
   id_atividades_mv int default nextval('id_atividades_mv'::regclass) PRIMARY KEY,
   tipo_atividade Varchar(3),
   id_relatorio Varchar(200),
-  CONSTRAINT fk_tipo_atividade FOREIGN KEY(tipo_atividade) REFERENCES tbl_atividades(tipo_atividade),
-  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+  CONSTRAINT fk_tbl_atividades FOREIGN KEY(tipo_atividade) REFERENCES tbl_atividades(tipo_atividade),
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
 CREATE TABLE tbl_sefis(
@@ -87,41 +87,41 @@ CREATE TABLE fiscais_atv(
   nome Varchar(400),
   cargo Varchar(400),
   img_assinatura Varchar(400),
-  CONSTRAINT fk_matricula FOREIGN KEY(matricula) REFERENCES tbl_sefis(matricula),
-  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+  CONSTRAINT fk_tbl_sefis FOREIGN KEY(matricula) REFERENCES tbl_sefis(matricula),
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
-CREATE SEQUENCE id_testemunhas;
+CREATE SEQUENCE id_testemunha;
 CREATE TABLE testemunhas(
-  id_testemunhas int default nextval('id_testemunhas'::regclass) PRIMARY KEY,
+  id_testemunha int default nextval('id_testemunha'::regclass) PRIMARY KEY,
   id_relatorio Varchar(200),
   nome Varchar(400),
   documento Varchar(40),
   img_assinatura Varchar(400),
   negou_assinar boolean,
-  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
-CREATE SEQUENCE id_recursos_humanos;
+CREATE SEQUENCE id_recurso_humano;
 CREATE TABLE recursos_humanos(
-  id_recursos_humanos int default nextval('id_recursos_humanos'::regclass) PRIMARY KEY,
+  id_recurso_humano int default nextval('id_recurso_humano'::regclass) PRIMARY KEY,
   id_relatorio Varchar(200),
   nome Varchar(400),
   crmv_pf Varchar(40),
   uf Varchar(2),
   funcao text,
   formacao Varchar(40),
-  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
 CREATE SEQUENCE id_responsavel_tecnico;
-CREATE TABLE responsavel_tecnico(
+CREATE TABLE responsaveis_tecnicos(
   id_responsavel_tecnico int default nextval('id_responsavel_tecnico'::regclass) PRIMARY KEY,
   id_relatorio Varchar(200),
   nome Varchar(400),
   crmv_pf Varchar(40),
   formacao Varchar(40),
-  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
 CREATE TABLE tbl_tcpj(
@@ -132,33 +132,49 @@ CREATE TABLE tbl_tcpj(
 CREATE TABLE termo_constatacao_pj(
   id_relatorio Varchar(200),
   id_tcpj Varchar(400) PRIMARY KEY,
-  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
+CREATE SEQUENCE id_tcpj_adc;
 CREATE TABLE termo_constatacao_pj_adc(
+  id_tcpj_adc int default nextval('id_tcpj_adc'::regclass) PRIMARY KEY,
   id_relatorio Varchar(200),
   id_tcpj Varchar(400),
   constatacoes_adicionais text,
-  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
-  CONSTRAINT fk_id_tcpj FOREIGN KEY(id_tcpj) REFERENCES tcpj(id_tcpj)
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_termo_constatacao_pj FOREIGN KEY(id_tcpj) REFERENCES termo_constatacao_pj(id_tcpj)
 );
 
+CREATE SEQUENCE id_tcpj_tb;
 CREATE TABLE termo_constatacao_pj_tb(
+  id_tcpj_tb int default nextval('id_tcpj_tb'::regclass) PRIMARY KEY,
   id_relatorio Varchar(200),
   id_tcpj Varchar(400),
   constatacoes_tabeladas Varchar(3),
-  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
-  CONSTRAINT fk_id_tcpj FOREIGN KEY(id_tcpj) REFERENCES tcpj(id_tcpj),
-  CONSTRAINT fk_constatacoes_tabeladas FOREIGN KEY(constatacoes_tabeladas) REFERENCES tbl_tcpj(constatacoes_tabeladas)
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_termo_constatacao_pj FOREIGN KEY(id_tcpj) REFERENCES termo_constatacao_pj(id_tcpj),
+  CONSTRAINT fk_tbl_tcpj FOREIGN KEY(constatacoes_tabeladas) REFERENCES tbl_tcpj(constatacoes_tabeladas)
+);
+
+CREATE SEQUENCE id_tcpj_dt;
+CREATE TABLE termo_constatacao_pj_dt(
+  id_tcpj_dt int default nextval('id_tcpj_dt'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(200),
+  id_tcpj Varchar(400),
+  constatacoes text,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_termo_constatacao_pj FOREIGN KEY(id_tcpj) REFERENCES termo_constatacao_pj(id_tcpj)
 );
 
 CREATE TABLE termo_constatacao_pf(
   id_relatorio Varchar(200),
   id_tcpf Varchar(400) PRIMARY KEY,
-  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
+CREATE SEQUENCE id_tcpf_dt;
 CREATE TABLE termo_constatacao_pf_dt(
+  id_tcpf_dt int default nextval('id_tcpf_dt'::regclass) PRIMARY KEY,
   id_relatorio Varchar(200),
   id_tcpf Varchar(400),
   nome Varchar(400),
@@ -167,8 +183,8 @@ CREATE TABLE termo_constatacao_pf_dt(
   negou_assinar boolean,
   contato_email Varchar(40),
   constatacao text,
-  CONSTRAINT fk_id_relatorio FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
-  CONSTRAINT fk_id_tcpf FOREIGN KEY(id_tcpf) REFERENCES tcpf(id_tcpf)
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tcpf FOREIGN KEY(id_tcpf) REFERENCES tcpf(id_tcpf)
 );
 
 CREATE TABLE termo_fiscalizacao(
