@@ -33,7 +33,7 @@ CREATE TABLE forms(
 );
 
 CREATE TABLE dados_fiscalizacao(
-  id_relatorio Varchar(45) PRIMARY KEY,
+  id_relatorio Varchar(200) PRIMARY KEY,
   data_fiscalizacao date,
   hora_inicio timestamp(2),
   hora_fim timestamp(2),
@@ -53,6 +53,7 @@ CREATE TABLE dados_fiscalizacao(
 CREATE SEQUENCE id_estabelecimento;
 CREATE TABLE estabelecimentos(
   id_estabelecimento int default nextval('id_estabelecimento'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(200),
   crmv_pj Varchar(10),
   razao_social Varchar(200),
   cpf_cnpj Varchar(40),
@@ -184,7 +185,7 @@ CREATE TABLE termo_constatacao_pf_dt(
   contato_email Varchar(40),
   constatacao text,
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
-  CONSTRAINT fk_tcpf FOREIGN KEY(id_tcpf) REFERENCES tcpf(id_tcpf)
+  CONSTRAINT fk_tcpf FOREIGN KEY(id_tcpf) REFERENCES termo_constatacao_pf(id_tcpf)
 );
 
 CREATE TABLE termo_fiscalizacao(
