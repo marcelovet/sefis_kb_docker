@@ -285,6 +285,11 @@ CREATE TABLE ambientes_gerais(
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
+CREATE TABLE tbl_funcionamento(
+  id_condicao Varchar(2) PRIMARY KEY,
+  label_condicao text
+);
+
 CREATE SEQUENCE id_ambiente_clin_ambulatorial;
 CREATE TABLE ambientes_clin_ambulatoriais(
   id_ambiente_clin_ambulatorial int default nextval('id_ambiente_clin_ambulatorial'::regclass) PRIMARY KEY,
@@ -294,7 +299,13 @@ CREATE TABLE ambientes_clin_ambulatoriais(
   termometro_un_refrigeracao boolean,
   exclusiva_un_refrigeracao boolean,
   num_salas_atendimento  int,
-  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_funcionamento_balanca
+    FOREIGN KEY(balanca)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_unidade_refrigeracao
+    FOREIGN KEY(unidade_refrigeracao_vacina)
+      REFERENCES tbl_funcionamento(id_condicao)
 );
 
 CREATE SEQUENCE id_sala_atendimento;
@@ -307,5 +318,80 @@ CREATE TABLE salas_atendimento(
   materiais_higienizacao boolean,
   mobiliario Varchar(1),
   exclusivo_mobiliario boolean,
-  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_funcionamento_mesa
+    FOREIGN KEY(mesa_atendimento)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_pia
+    FOREIGN KEY(pia_higienizacao)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_mobiliario
+    FOREIGN KEY(mobiliario)
+      REFERENCES tbl_funcionamento(id_condicao)
+);
+
+CREATE TABLE tbl_preparo(
+  id_preparo Varchar(2) PRIMARY KEY,
+  label_preparo text
+);
+
+CREATE SEQUENCE id_ambiente_preparo;
+CREATE TABLE ambientes_preparo(
+  id_ambiente_preparo int default nextval('id_ambiente_preparo'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  ambiente_preparo Varchar(1),
+  mesa_preparo Varchar(1),
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_preparo
+    FOREIGN KEY(ambiente_preparo)
+      REFERENCES tbl_preparo(id_preparo),
+  CONSTRAINT fk_tbl_funcionamento_mesa
+    FOREIGN KEY(mesa_preparo)
+      REFERENCES tbl_funcionamento(id_condicao)
+);
+
+CREATE TABLE tbl_recuperacao(
+  id_recuperacao Varchar(2) PRIMARY KEY,
+  label_recuperacao text
+);
+
+CREATE SEQUENCE id_ambiente_recuperacao;
+CREATE TABLE ambientes_recuperacao(
+  id_ambiente_recuperacao int default nextval('id_ambiente_recuperacao'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  ambiente_recuperacao Varchar(1),
+  oxigenio_recuperacao boolean,
+  oxigenio_reserva_recuperacao boolean,
+  aquecimento_recuperacao Varchar(1),
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_recuperacao
+    FOREIGN KEY(ambiente_recuperacao)
+      REFERENCES tbl_recuperacao(id_recuperacao),
+  CONSTRAINT fk_tbl_funcionamento_aquecimento
+    FOREIGN KEY(aquecimento_recuperacao)
+      REFERENCES tbl_funcionamento(id_condicao)
+);
+
+CREATE TABLE tbl_paramentacao(
+  id_paramentacao Varchar(2) PRIMARY KEY,
+  label_paramentacao text
+);
+
+CREATE SEQUENCE id_ambiente_paramentacao;
+CREATE TABLE ambientes_paramentacao(
+  id_ambiente_paramentacao int default nextval('id_ambiente_paramentacao'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  ambiente_paramentacao Varchar(1),
+  ambiente_paramentacao_outro text,
+  pia_dispensador Varchar(1),
+  pia_sem_mao boolean,
+  insumo_preparacao boolean,
+  insumo_paramentacao boolean,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_paramentacao
+    FOREIGN KEY(ambiente_paramentacao)
+      REFERENCES tbl_paramentacao(id_paramentacao),
+  CONSTRAINT fk_tbl_funcionamento_pia
+    FOREIGN KEY(pia_dispensador)
+      REFERENCES tbl_funcionamento(id_condicao)
 );
