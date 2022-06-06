@@ -395,3 +395,65 @@ CREATE TABLE ambientes_paramentacao(
     FOREIGN KEY(pia_dispensador)
       REFERENCES tbl_funcionamento(id_condicao)
 );
+
+CREATE SEQUENCE id_esterilizacao_terceirizada;
+CREATE TABLE esterilizacoes_terceirizadas(
+  id_esterilizacao_terceirizada int default nextval('id_esterilizacao_terceirizada'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  terceiriza_esterilizacao boolean,
+  controla_terceirizado boolean,
+  pop_terceirizado boolean,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
+);
+
+CREATE TABLE tbl_ambientes(
+  id_ambiente Varchar(2) PRIMARY KEY,
+  label_ambiente text
+);
+
+CREATE SEQUENCE id_ambiente_lav_esterilizacao;
+CREATE TABLE ambientes_lav_esterilizacao(
+  id_ambiente_lav_esterilizacao int default nextval('id_ambiente_lav_esterilizacao'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  lavagem_esterilizacao boolean,
+  ambiente_esterilizacao Varchar(1),
+  ambiente_esterilizacao_outro text,
+  fluxo_unidirecional boolean,
+  pop_esterilizacao boolean,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_ambientes
+    FOREIGN KEY(ambiente_esterilizacao)
+      REFERENCES tbl_ambientes(id_ambiente)
+);
+
+CREATE TABLE tbl_equipamentos_esteril(
+  id_equipamento Varchar(2) PRIMARY KEY,
+  label_equipamento text
+);
+
+CREATE TABLE tbl_armazenamento_esteril(
+  id_armazenamento Varchar(2) PRIMARY KEY,
+  label_armazenamento text
+);
+
+CREATE SEQUENCE id_condicao_lav_esterilizacao;
+CREATE TABLE condicoes_lav_esterilizacao(
+  id_condicao_lav_esterilizacao int default nextval('id_condicao_lav_esterilizacao'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  monitora_limpeza boolean,
+  acessorio_abrasivo boolean,
+  embalagem_mantem_esteril boolean,
+  embalagem_rotulada boolean,
+  equipamento_esterilizacao Varchar(1),
+  incador_qm2 boolean,
+  controla_esterilizacao boolean,
+  ambiente_armazenagem Varchar(1),
+  mobiliario_armazenagem boolean,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_equipamentos_esteril
+    FOREIGN KEY(equipamento_esterilizacao)
+      REFERENCES tbl_equipamentos_esteril(id_equipamento),
+  CONSTRAINT fk_tbl_armazenamento_esteril
+    FOREIGN KEY(ambiente_armazenagem)
+      REFERENCES tbl_armazenamento_esteril(id_armazenamento)
+);
