@@ -457,3 +457,112 @@ CREATE TABLE condicoes_lav_esterilizacao(
     FOREIGN KEY(ambiente_armazenagem)
       REFERENCES tbl_armazenamento_esteril(id_armazenamento)
 );
+
+CREATE TABLE tbl_parametros(
+  id_parametro Varchar(2) PRIMARY KEY,
+  label_parametro text
+);
+
+CREATE TABLE tbl_cirurgia(
+  id_cirurgia Varchar(2) PRIMARY KEY,
+  label_cirurgia text
+);
+
+CREATE SEQUENCE id_ambiente_cirurgia;
+CREATE TABLE ambientes_cirurgia(
+  id_ambiente_cirurgia int default nextval('id_ambiente_cirurgia'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  ambiente_cirurgia Varchar(1),
+  ambiente_cirurgia_outro text,
+  foco_cirurgico Varchar(1),
+  iluminacao_emergencial boolean,
+  mesa_cirurgia Varchar(1),
+  mesa_auxiliar Varchar(1),
+  oxigenio_cirurgia boolean,
+  oxigenio_reserva_cirurgia boolean,
+  aquecimento_cirurgia Varchar(1),
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_cirurgia
+    FOREIGN KEY(ambiente_cirurgia)
+      REFERENCES tbl_cirurgia(id_cirurgia),
+  CONSTRAINT fk_tbl_funcionamento_foco
+    FOREIGN KEY(foco_cirurgico)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_mesa_cir
+    FOREIGN KEY(mesa_cirurgia)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_mesa_aux
+    FOREIGN KEY(mesa_auxiliar)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_aquecimento
+    FOREIGN KEY(aquecimento_cirurgia)
+      REFERENCES tbl_funcionamento(id_condicao)
+);
+
+CREATE SEQUENCE id_parametro_cirurgia;
+CREATE TABLE paramentros_cirurgia(
+  id_parametro_cirurgia int default nextval('id_parametro_cirurgia'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  parametro_cirurgia Varchar(1),
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_parametros
+    FOREIGN KEY(parametro_cirurgia)
+      REFERENCES tbl_parametros(id_parametro)
+);
+
+CREATE SEQUENCE id_ambiente_internacao;
+CREATE TABLE ambientes_internacao(
+  id_ambiente_internacao int default nextval('id_ambiente_internacao'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  acomodacao_individual Varchar(1),
+  local_higienizacao Varchar(1),
+  mesa_internacao Varchar(1),
+  aquecimento_internacao Varchar(1),
+  pia_internacao Varchar(1),
+  mobiliario_internacao Varchar(1),
+  registra_internacao boolean,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_funcionamento_acomodacao
+    FOREIGN KEY(acomodacao_individual)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_higienizacao
+    FOREIGN KEY(local_higienizacao)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_mesa
+    FOREIGN KEY(mesa_internacao)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_aquecimento
+    FOREIGN KEY(aquecimento_internacao)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_pia
+    FOREIGN KEY(pia_internacao)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_mobiliario
+    FOREIGN KEY(mobiliario_internacao)
+      REFERENCES tbl_funcionamento(id_condicao)
+);
+
+CREATE SEQUENCE id_ambiente_infecto;
+CREATE TABLE ambientes_infecto_internacao(
+  id_ambiente_infecto int default nextval('id_ambiente_infecto'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  interna_infecto boolean,
+  exclusivo_infecto boolean,
+  acomodacao_infecto Varchar(1),
+  mesa_infecto Varchar(1),
+  aquecimento_infecto Varchar(1),
+  pia_infecto Varchar(1),
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_funcionamento_acomodacao
+    FOREIGN KEY(acomodacao_infecto)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_mesa
+    FOREIGN KEY(mesa_infecto)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_aquecimento
+    FOREIGN KEY(aquecimento_infecto)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_pia
+    FOREIGN KEY(pia_infecto)
+      REFERENCES tbl_funcionamento(id_condicao)
+);
