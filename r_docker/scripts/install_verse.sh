@@ -90,7 +90,7 @@ install2.r --error --skipmissing --deps TRUE --skipinstalled -n "$NCPUS" \
     rJava \
     xaringan \
     mailR \
-    Rcurl
+    RCurl
 
 # Clean up
 rm -rf /tmp/downloaded_packages
