@@ -77,7 +77,8 @@ CREATE TABLE atividades_mv(
 CREATE TABLE tbl_sefis(
   matricula Varchar(10) PRIMARY KEY,
   nome Varchar(400),
-  cargo Varchar(400)
+  cargo Varchar(400),
+  email Varchar(400)
 );
 
 CREATE SEQUENCE id_fiscais_atv;
@@ -198,9 +199,9 @@ CREATE TABLE termo_fiscalizacao(
 CREATE TABLE auto_infracao(
   id_relatorio Varchar(200),
   id_ai Varchar(400) PRIMARY KEY,
-  label_ai_rt text,
-  label_ai_registro text,
-  label_ai_comerciovacina text,
+  ai_rt boolean,
+  ai_registro boolean,
+  ai_comerciovacina boolean,
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
@@ -235,8 +236,9 @@ CREATE TABLE tbl_servicos(
 CREATE SEQUENCE id_servico;
 CREATE TABLE servicos(
   id_servico int default nextval('id_servico'::regclass) PRIMARY KEY,
-  servico_ofertado Varchar(3),
   id_relatorio Varchar(45),
+  servico_ofertado Varchar(3),
+  servico_outro text,
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_servicos FOREIGN KEY(servico_ofertado) REFERENCES tbl_servicos(servico_ofertado)
 );
@@ -244,8 +246,8 @@ CREATE TABLE servicos(
 CREATE SEQUENCE id_servico_terceirizado;
 CREATE TABLE servicos_terceirizados(
   id_servico_terceirizado int default nextval('id_servico_terceirizado'::regclass) PRIMARY KEY,
-  servico_ofertado Varchar(3),
   id_relatorio Varchar(45),
+  servico_ofertado Varchar(3),
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_servicos FOREIGN KEY(servico_ofertado) REFERENCES tbl_servicos(servico_ofertado)
 );
@@ -253,8 +255,8 @@ CREATE TABLE servicos_terceirizados(
 CREATE SEQUENCE id_servico_24h;
 CREATE TABLE servicos_24h(
   id_servico_24h int default nextval('id_servico_24h'::regclass) PRIMARY KEY,
-  servico_ofertado Varchar(3),
   id_relatorio Varchar(45),
+  servico_ofertado Varchar(3),
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_servicos FOREIGN KEY(servico_ofertado) REFERENCES tbl_servicos(servico_ofertado)
 );
@@ -657,4 +659,33 @@ CREATE TABLE equipamentos_laboratorio(
   CONSTRAINT fk_tbl_funcionamento_un_refrigeracao
     FOREIGN KEY(unidade_refrigeracao_lab)
       REFERENCES tbl_funcionamento(id_condicao)
+);
+
+CREATE SEQUENCE id_ambiente_sustentacao;
+CREATE TABLE ambientes_sustentacao(
+  id_ambiente_sustentacao int default nextval('id_ambiente_sustentacao'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  sanitario_funcionario boolean,
+  lavanderia Varchar(2),
+  dml boolean,
+  un_refrigeracao_cadaver Varchar(1),
+  exclusiva_refrigeracao_cadaver boolean,
+  descanso_mv boolean,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_funcionamento_un_refrigeracao
+    FOREIGN KEY(un_refrigeracao_cadaver)
+      REFERENCES tbl_funcionamento(id_condicao)
+);
+
+CREATE SEQUENCE id_condicao_geral;
+CREATE TABLE condicoes_gerais(
+  id_condicao_geral int default nextval('id_condicao_geral'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  usa_medicamento_esp boolean,
+  restrito_medicamento_esp boolean,
+  livro_medicamento_esp boolean,
+  possui_pgrss boolean,
+  registra_limpeza boolean,
+  orienta_higienizacao boolean,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
