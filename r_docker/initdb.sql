@@ -566,3 +566,45 @@ CREATE TABLE ambientes_infecto_internacao(
     FOREIGN KEY(pia_infecto)
       REFERENCES tbl_funcionamento(id_condicao)
 );
+
+CREATE TABLE tbl_exames(
+  id_exame VARCHAR(2) PRIMARY KEY,
+  label_exame text,
+  tipo_exame VARCHAR(40)
+);
+
+CREATE SEQUENCE id_exame_imagem;
+CREATE TABLE exames_imagem(
+  id_exame_imagem int default nextval('id_exame_imagem'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  exame_imagem Varchar(2),
+  exame_imagem_outro text,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_exames
+    FOREIGN KEY(exame_imagem)
+      REFERENCES tbl_exames(id_exame)
+);
+
+CREATE SEQUENCE id_ambiente_imagiologia;
+CREATE TABLE ambientes_imagiologia(
+  id_ambiente_imagiologia int default nextval('id_ambiente_imagiologia'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  ambiente_imagem Varchar(2),
+  ambiente_imagem_outro text,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_ambientes
+    FOREIGN KEY(ambiente_imagem)
+      REFERENCES tbl_ambientes(id_ambiente)
+);
+
+CREATE SEQUENCE id_ambiente_radiografia;
+CREATE TABLE ambientes_radiografia(
+  id_ambiente_radiografia int default nextval('id_ambiente_radiografia'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  ambiente_radio Varchar(2),
+  ambiente_radio_outro text,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_ambientes
+    FOREIGN KEY(ambiente_radio)
+      REFERENCES tbl_ambientes(id_ambiente)
+);
