@@ -296,8 +296,8 @@ CREATE SEQUENCE id_ambiente_clin_ambulatorial;
 CREATE TABLE ambientes_clin_ambulatoriais(
   id_ambiente_clin_ambulatorial int default nextval('id_ambiente_clin_ambulatorial'::regclass) PRIMARY KEY,
   id_relatorio Varchar(45),
-  balanca Varchar(1),
-  unidade_refrigeracao_vacina Varchar(1),
+  balanca Varchar(2),
+  unidade_refrigeracao_vacina Varchar(2),
   termometro_un_refrigeracao boolean,
   exclusiva_un_refrigeracao boolean,
   num_salas_atendimento  int,
@@ -315,10 +315,10 @@ CREATE TABLE salas_atendimento(
   id_sala_atendimento int default nextval('id_sala_atendimento'::regclass) PRIMARY KEY,
   id_relatorio Varchar(45),
   sala Varchar(2),
-  mesa_atendimento Varchar(1),
-  pia_higienizacao Varchar(1),
+  mesa_atendimento Varchar(2),
+  pia_higienizacao Varchar(2),
   materiais_higienizacao boolean,
-  mobiliario Varchar(1),
+  mobiliario Varchar(2),
   exclusivo_mobiliario boolean,
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_funcionamento_mesa
@@ -341,8 +341,8 @@ CREATE SEQUENCE id_ambiente_preparo;
 CREATE TABLE ambientes_preparo(
   id_ambiente_preparo int default nextval('id_ambiente_preparo'::regclass) PRIMARY KEY,
   id_relatorio Varchar(45),
-  ambiente_preparo Varchar(1),
-  mesa_preparo Varchar(1),
+  ambiente_preparo Varchar(2),
+  mesa_preparo Varchar(2),
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_preparo
     FOREIGN KEY(ambiente_preparo)
@@ -361,10 +361,10 @@ CREATE SEQUENCE id_ambiente_recuperacao;
 CREATE TABLE ambientes_recuperacao(
   id_ambiente_recuperacao int default nextval('id_ambiente_recuperacao'::regclass) PRIMARY KEY,
   id_relatorio Varchar(45),
-  ambiente_recuperacao Varchar(1),
+  ambiente_recuperacao Varchar(2),
   oxigenio_recuperacao boolean,
   oxigenio_reserva_recuperacao boolean,
-  aquecimento_recuperacao Varchar(1),
+  aquecimento_recuperacao Varchar(2),
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_recuperacao
     FOREIGN KEY(ambiente_recuperacao)
@@ -383,9 +383,9 @@ CREATE SEQUENCE id_ambiente_paramentacao;
 CREATE TABLE ambientes_paramentacao(
   id_ambiente_paramentacao int default nextval('id_ambiente_paramentacao'::regclass) PRIMARY KEY,
   id_relatorio Varchar(45),
-  ambiente_paramentacao Varchar(1),
+  ambiente_paramentacao Varchar(2),
   ambiente_paramentacao_outro text,
-  pia_dispensador Varchar(1),
+  pia_dispensador Varchar(2),
   pia_sem_mao boolean,
   insumo_preparacao boolean,
   insumo_paramentacao boolean,
@@ -398,16 +398,6 @@ CREATE TABLE ambientes_paramentacao(
       REFERENCES tbl_funcionamento(id_condicao)
 );
 
-CREATE SEQUENCE id_esterilizacao_terceirizada;
-CREATE TABLE esterilizacoes_terceirizadas(
-  id_esterilizacao_terceirizada int default nextval('id_esterilizacao_terceirizada'::regclass) PRIMARY KEY,
-  id_relatorio Varchar(45),
-  terceiriza_esterilizacao boolean,
-  controla_terceirizado boolean,
-  pop_terceirizado boolean,
-  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
-);
-
 CREATE TABLE tbl_ambientes(
   id_ambiente Varchar(2) PRIMARY KEY,
   label_ambiente text
@@ -418,7 +408,7 @@ CREATE TABLE ambientes_lav_esterilizacao(
   id_ambiente_lav_esterilizacao int default nextval('id_ambiente_lav_esterilizacao'::regclass) PRIMARY KEY,
   id_relatorio Varchar(45),
   lavagem_esterilizacao boolean,
-  ambiente_esterilizacao Varchar(1),
+  ambiente_esterilizacao Varchar(2),
   ambiente_esterilizacao_outro text,
   fluxo_unidirecional boolean,
   pop_esterilizacao boolean,
@@ -426,6 +416,16 @@ CREATE TABLE ambientes_lav_esterilizacao(
   CONSTRAINT fk_tbl_ambientes
     FOREIGN KEY(ambiente_esterilizacao)
       REFERENCES tbl_ambientes(id_ambiente)
+);
+
+CREATE SEQUENCE id_esterilizacao_terceirizada;
+CREATE TABLE esterilizacoes_terceirizadas(
+  id_esterilizacao_terceirizada int default nextval('id_esterilizacao_terceirizada'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  terceiriza_esterilizacao boolean,
+  controla_terceirizado boolean,
+  pop_terceirizado boolean,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
 CREATE TABLE tbl_equipamentos_esteril(
@@ -446,10 +446,10 @@ CREATE TABLE condicoes_lav_esterilizacao(
   acessorio_abrasivo boolean,
   embalagem_mantem_esteril boolean,
   embalagem_rotulada boolean,
-  equipamento_esterilizacao Varchar(1),
+  equipamento_esterilizacao Varchar(2),
   incador_qm2 boolean,
   controla_esterilizacao boolean,
-  ambiente_armazenagem Varchar(1),
+  ambiente_armazenagem Varchar(2),
   mobiliario_armazenagem boolean,
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_equipamentos_esteril
@@ -458,11 +458,6 @@ CREATE TABLE condicoes_lav_esterilizacao(
   CONSTRAINT fk_tbl_armazenamento_esteril
     FOREIGN KEY(ambiente_armazenagem)
       REFERENCES tbl_armazenamento_esteril(id_armazenamento)
-);
-
-CREATE TABLE tbl_parametros(
-  id_parametro Varchar(2) PRIMARY KEY,
-  label_parametro text
 );
 
 CREATE TABLE tbl_cirurgia(
@@ -474,15 +469,15 @@ CREATE SEQUENCE id_ambiente_cirurgia;
 CREATE TABLE ambientes_cirurgia(
   id_ambiente_cirurgia int default nextval('id_ambiente_cirurgia'::regclass) PRIMARY KEY,
   id_relatorio Varchar(45),
-  ambiente_cirurgia Varchar(1),
+  ambiente_cirurgia Varchar(2),
   ambiente_cirurgia_outro text,
-  foco_cirurgico Varchar(1),
+  foco_cirurgico Varchar(2),
   iluminacao_emergencial boolean,
-  mesa_cirurgia Varchar(1),
-  mesa_auxiliar Varchar(1),
+  mesa_cirurgia Varchar(2),
+  mesa_auxiliar Varchar(2),
   oxigenio_cirurgia boolean,
   oxigenio_reserva_cirurgia boolean,
-  aquecimento_cirurgia Varchar(1),
+  aquecimento_cirurgia Varchar(2),
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_cirurgia
     FOREIGN KEY(ambiente_cirurgia)
@@ -501,11 +496,16 @@ CREATE TABLE ambientes_cirurgia(
       REFERENCES tbl_funcionamento(id_condicao)
 );
 
+CREATE TABLE tbl_parametros(
+  id_parametro Varchar(2) PRIMARY KEY,
+  label_parametro text
+);
+
 CREATE SEQUENCE id_parametro_cirurgia;
-CREATE TABLE paramentros_cirurgia(
+CREATE TABLE parametros_cirurgia(
   id_parametro_cirurgia int default nextval('id_parametro_cirurgia'::regclass) PRIMARY KEY,
   id_relatorio Varchar(45),
-  parametro_cirurgia Varchar(1),
+  parametro_cirurgia Varchar(2),
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_parametros
     FOREIGN KEY(parametro_cirurgia)
@@ -516,12 +516,12 @@ CREATE SEQUENCE id_ambiente_internacao;
 CREATE TABLE ambientes_internacao(
   id_ambiente_internacao int default nextval('id_ambiente_internacao'::regclass) PRIMARY KEY,
   id_relatorio Varchar(45),
-  acomodacao_individual Varchar(1),
-  local_higienizacao Varchar(1),
-  mesa_internacao Varchar(1),
-  aquecimento_internacao Varchar(1),
-  pia_internacao Varchar(1),
-  mobiliario_internacao Varchar(1),
+  acomodacao_individual Varchar(2),
+  local_higienizacao Varchar(2),
+  mesa_internacao Varchar(2),
+  aquecimento_internacao Varchar(2),
+  pia_internacao Varchar(2),
+  mobiliario_internacao Varchar(2),
   registra_internacao boolean,
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_funcionamento_acomodacao
@@ -550,10 +550,10 @@ CREATE TABLE ambientes_infecto_internacao(
   id_relatorio Varchar(45),
   interna_infecto boolean,
   exclusivo_infecto boolean,
-  acomodacao_infecto Varchar(1),
-  mesa_infecto Varchar(1),
-  aquecimento_infecto Varchar(1),
-  pia_infecto Varchar(1),
+  acomodacao_infecto Varchar(2),
+  mesa_infecto Varchar(2),
+  aquecimento_infecto Varchar(2),
+  pia_infecto Varchar(2),
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_funcionamento_acomodacao
     FOREIGN KEY(acomodacao_infecto)
@@ -641,10 +641,10 @@ CREATE TABLE equipamentos_laboratorio(
   id_relatorio Varchar(45),
   equipamento_glic_lac boolean,
   equipamento_urina boolean,
-  pia_laboratorio Varchar(1),
-  bancada_laboratorio Varchar(1),
-  mobilia_laboratorio Varchar(1),
-  unidade_refrigeracao_lab Varchar(1),
+  pia_laboratorio Varchar(2),
+  bancada_laboratorio Varchar(2),
+  mobilia_laboratorio Varchar(2),
+  unidade_refrigeracao_lab Varchar(2),
   termometro_un_refrigeracao_lab boolean,
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_funcionamento_pia
@@ -661,6 +661,11 @@ CREATE TABLE equipamentos_laboratorio(
       REFERENCES tbl_funcionamento(id_condicao)
 );
 
+CREATE TABLE tbl_lavanderia(
+  id_lavanderia VARCHAR(2) PRIMARY KEY,
+  label_lavanderia text
+);
+
 CREATE SEQUENCE id_ambiente_sustentacao;
 CREATE TABLE ambientes_sustentacao(
   id_ambiente_sustentacao int default nextval('id_ambiente_sustentacao'::regclass) PRIMARY KEY,
@@ -674,7 +679,10 @@ CREATE TABLE ambientes_sustentacao(
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_funcionamento_un_refrigeracao
     FOREIGN KEY(un_refrigeracao_cadaver)
-      REFERENCES tbl_funcionamento(id_condicao)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_lavanderia
+    FOREIGN KEY(lavanderia)
+      REFERENCES tbl_lavanderia(id_lavanderia)
 );
 
 CREATE SEQUENCE id_condicao_geral;
