@@ -608,3 +608,53 @@ CREATE TABLE ambientes_radiografia(
     FOREIGN KEY(ambiente_radio)
       REFERENCES tbl_ambientes(id_ambiente)
 );
+
+CREATE SEQUENCE id_exame_laboratorio;
+CREATE TABLE exames_laboratorio(
+  id_exame_laboratorio int default nextval('id_exame_laboratorio'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  exame_laboratorio Varchar(2),
+  exame_laboratorio_outro text,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_exames
+    FOREIGN KEY(exame_laboratorio)
+      REFERENCES tbl_exames(id_exame)
+);
+
+CREATE SEQUENCE id_ambiente_laboratorio;
+CREATE TABLE ambientes_laboratorio(
+  id_ambiente_laboratorio int default nextval('id_ambiente_laboratorio'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  ambiente_laboratorio Varchar(2),
+  ambiente_laboratorio_outro text,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_ambientes
+    FOREIGN KEY(ambiente_laboratorio)
+      REFERENCES tbl_ambientes(id_ambiente)
+);
+
+CREATE SEQUENCE id_equipamento_laboratorio;
+CREATE TABLE equipamentos_laboratorio(
+  id_equipamento_laboratorio int default nextval('id_equipamento_laboratorio'::regclass) PRIMARY KEY,
+  id_relatorio Varchar(45),
+  equipamento_glic_lac boolean,
+  equipamento_urina boolean,
+  pia_laboratorio Varchar(1),
+  bancada_laboratorio Varchar(1),
+  mobilia_laboratorio Varchar(1),
+  unidade_refrigeracao_lab Varchar(1),
+  termometro_un_refrigeracao_lab boolean,
+  CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
+  CONSTRAINT fk_tbl_funcionamento_pia
+    FOREIGN KEY(pia_laboratorio)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_bancada
+    FOREIGN KEY(bancada_laboratorio)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_mobilia
+    FOREIGN KEY(mobilia_laboratorio)
+      REFERENCES tbl_funcionamento(id_condicao),
+  CONSTRAINT fk_tbl_funcionamento_un_refrigeracao
+    FOREIGN KEY(unidade_refrigeracao_lab)
+      REFERENCES tbl_funcionamento(id_condicao)
+);
