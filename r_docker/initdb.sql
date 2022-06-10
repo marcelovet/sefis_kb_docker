@@ -257,6 +257,7 @@ CREATE TABLE servicos_24h(
   id_servico_24h int default nextval('id_servico_24h'::regclass) PRIMARY KEY,
   id_relatorio Varchar(45),
   servico_ofertado Varchar(3),
+  vet_integral boolean,
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio),
   CONSTRAINT fk_tbl_servicos FOREIGN KEY(servico_ofertado) REFERENCES tbl_servicos(servico_ofertado)
 );
