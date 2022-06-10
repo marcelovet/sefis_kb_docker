@@ -60,8 +60,8 @@ CREATE TABLE estabelecimentos(
   endereco text,
   contato_email Varchar(40),
   contato_telcel Varchar(40),
-  latitude real,
-  longitude real,
+  latitude Varchar(40),
+  longitude Varchar(40),
   CONSTRAINT fk_dados_fiscalizacao FOREIGN KEY(id_relatorio) REFERENCES dados_fiscalizacao(id_relatorio)
 );
 
