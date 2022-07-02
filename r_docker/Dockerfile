@@ -6,6 +6,7 @@ ENV CTAN_REPO=https://mirror.ctan.org/systems/texlive/tlnet
 ENV PATH=$PATH:/usr/local/texlive/bin/x86_64-linux
 
 RUN /app/install_verse.sh
+RUN /app/install_geospatial.sh
 
 COPY preamble.tex /home/rstudio
 COPY texconfig.rmd /home/rstudio
